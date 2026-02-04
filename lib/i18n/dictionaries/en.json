@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "title": "SyncTune - Sync your playlists for the price of a coffee",
+    "description": "Transfer playlists between Spotify, Apple Music, Deezer and YouTube. $1.99/month. 1 month free trial."
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "playlists": "My Playlists",
+    "connections": "Connections",
+    "feedback": "Feedback",
+    "supportedServices": "Supported Services",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "upgrade": "Upgrade $1.99"
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in with magic link or Google",
+    "emailPlaceholder": "your@email.com",
+    "sendMagicLink": "Send Magic Link",
+    "sending": "Sending...",
+    "checkEmail": "Check your email for the magic link!",
+    "orContinueWith": "Or continue with",
+    "google": "Google"
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {name}",
+    "playlistsCount": "You have {count} playlists synced",
+    "lastSync": "Last sync: {time}",
+    "connected": "Connected",
+    "reconnectRequired": "Reconnect required",
+    "syncNow": "Sync Now",
+    "manage": "Manage"
+  },
+  "pricing": {
+    "title": "Sync for the price of a coffee",
+    "subtitle": "No hidden fees. Cancel anytime.",
+    "monthly": "Monthly",
+    "annual": "Annual (Save 25%)",
+    "free": {
+      "name": "Free",
+      "price": "$0",
+      "features": [
+        "1 playlist max",
+        "Manual sync only",
+        "1 AI generation/day"
+      ]
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "$1.99",
+      "badge": "Price of a coffee! ☕",
+      "features": [
+        "Unlimited playlists",
+        "Auto-sync (daily/weekly)",
+        "Unlimited AI generations"
+      ]
+    },
+    "startFreeTrial": "Start 1-Month Free",
+    "currentPlan": "Current Plan"
+  },
+  "supportedServices": {
+    "title": "Supported Music Services",
+    "subtitle": "We use official APIs only. No scraping.",
+    "fullSupport": "Full Support",
+    "partialSupport": "Supported (Partial)",
+    "comingSoon": "Coming Soon",
+    "sourceOAuth": "Source (OAuth)",
+    "sourcePublic": "Source (Public Link)",
+    "destinationWrite": "Destination Write",
+    "modes": "Modes",
+    "limitations": "Limitations / Notes",
+    "appleMusicCTA": {
+      "title": "🍎 Apple Music Full Sync — Coming Soon",
+      "description": "Currently supported: Export playlists and transfer to Spotify/Deezer. Full two-way sync launching at 100 requests.",
+      "counter": "0/100",
+      "placeholder": "your@email.com",
+      "button": "Get Notified",
+      "noSpam": "No spam. Unsubscribe anytime."
+    }
+  },
+  "feedback": {
+    "title": "Help us improve",
+    "subtitle": "Vote on upcoming features or submit your own",
+    "form": {
+      "type": "I want to...",
+      "typeBug": "Report a bug",
+      "typeFeature": "Request a feature",
+      "typePlatform": "Request a new platform",
+      "platform": "Platform (optional)",
+      "title": "Title",
+      "message": "Description",
+      "submit": "Submit",
+      "email": "Email (optional if logged in)"
+    },
+    "existingRequests": "Existing Requests",
+    "upvote": "Upvote",
+    "status": {
+      "new": "New",
+      "planned": "Planned",
+      "completed": "Completed"
+    }
+  }
+}

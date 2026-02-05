@@ -1,4 +1,4 @@
-# SyncTune - Playlist Sync Service
+# Playlist CoPilot - Playlist Sync Service
 
 Sync playlists between Spotify, Apple Music, Deezer and YouTube for the price of a coffee ($1.99/mo).
 

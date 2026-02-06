@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Playlist CoPilot - Playlist Sync Service
+=======
+# PlaylistCoPilot - Playlist Sync Service
+>>>>>>> 25bd43c (chore: local changes)
 
 Sync playlists between Spotify, Apple Music, Deezer and YouTube for the price of a coffee ($1.99/mo).
 
@@ -54,6 +58,7 @@ cp .env.local.example .env.local
 ### OAuth Setup (Local)
 
 **Spotify:**
+
 1. [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) → Create App
 2. App name: `SyncTune Local`
 3. Redirect URI: `http://localhost:3000/api/auth/callback`
@@ -61,6 +66,7 @@ cp .env.local.example .env.local
 5. Show Client Secret → `SPOTIFY_CLIENT_SECRET`
 
 **Deezer:**
+
 1. [developers.deezer.com/myapps](https://developers.deezer.com/myapps) → Create App
 2. Application domain: `localhost`
 3. Redirect URI: `http://localhost:3000/api/auth/callback`
@@ -68,6 +74,7 @@ cp .env.local.example .env.local
 5. Copy Secret Key → `DEEZER_APP_SECRET`
 
 **YouTube:**
+
 1. [console.cloud.google.com](https://console.cloud.google.com) → New Project
 2. APIs & Services → Enable APIs → YouTube Data API v3
 3. Credentials → Create Credentials → API Key → `YOUTUBE_API_KEY`
@@ -128,14 +135,14 @@ Test these features in order:
 
 ### Common Issues & Fixes
 
-| Issue | Cause | Fix |
-|-------|-------|-----|
-| `Invalid login credentials` | Supabase Auth not configured | Check NEXT_PUBLIC_SUPABASE_URL and ANON_KEY match your project |
-| `Failed to save subscription` (lead capture) | Missing service_role key | Add SUPABASE_SERVICE_ROLE_KEY from Supabase dashboard |
-| OAuth redirect fails | Redirect URI mismatch | Verify exact match: `http://localhost:3000/api/auth/callback` (no trailing slash) |
-| `cookies() called in Server Component` | Middleware issue | Ensure you're using `@supabase/auth-helpers-nextjs` v0.8.7+ |
-| `Module not found` | Dependencies not installed | Run `npm install` again |
-| Database tables missing | Migration not run | Execute SQL from `supabase/migrations/001_initial.sql` in Supabase SQL Editor |
+| Issue                                        | Cause                        | Fix                                                                               |
+| -------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------- |
+| `Invalid login credentials`                  | Supabase Auth not configured | Check NEXT_PUBLIC_SUPABASE_URL and ANON_KEY match your project                    |
+| `Failed to save subscription` (lead capture) | Missing service_role key     | Add SUPABASE_SERVICE_ROLE_KEY from Supabase dashboard                             |
+| OAuth redirect fails                         | Redirect URI mismatch        | Verify exact match: `http://localhost:3000/api/auth/callback` (no trailing slash) |
+| `cookies() called in Server Component`       | Middleware issue             | Ensure you’re using @supabase/auth-helpers-nextjs v0.8.7+                         |
+| `Module not found`                           | Dependencies not installed   | Run `npm install` again                                                           |
+| Database tables missing                      | Migration not run            | Execute SQL from `supabase/migrations/001_initial.sql` in Supabase SQL Editor     |
 
 ## Push to GitHub
 
@@ -161,6 +168,7 @@ git push -u origin main
 ```
 
 Verify on GitHub:
+
 - [ ] All files pushed
 - [ ] `supabase/migrations/` visible
 - [ ] `.env.local.example` visible (NOT `.env.local` - should be in .gitignore)
@@ -181,24 +189,25 @@ Verify on GitHub:
 
 Add ALL variables from `.env.local` (except Stripe if not testing payments yet):
 
-| Variable | Value | Where to find |
-|----------|-------|---------------|
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://xxxx.supabase.co` | Supabase Dashboard → Settings → API |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJ...` | Supabase Dashboard → Settings → API |
-| `SUPABASE_SERVICE_ROLE_KEY` | `eyJ...` | Supabase Dashboard → Settings → API (secret) |
-| `NEXT_PUBLIC_APP_URL` | `https://your-app.vercel.app` | Will be provided by Vercel after deploy, then update |
-| `ENCRYPTION_KEY` | `your_32_char_key` | Same as local (generate once, keep consistent) |
-| `SPOTIFY_CLIENT_ID` | Same as local | But update redirect URI after deploy |
-| `SPOTIFY_CLIENT_SECRET` | Same as local | |
-| `DEEZER_APP_ID` | Same as local | But update redirect URI after deploy |
-| `DEEZER_APP_SECRET` | Same as local | |
-| `YOUTUBE_API_KEY` | Same as local | |
+| Variable                        | Value                         | Where to find                                        |
+| ------------------------------- | ----------------------------- | ---------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | `https://xxxx.supabase.co`    | Supabase Dashboard → Settings → API                  |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJ...`                      | Supabase Dashboard → Settings → API                  |
+| `SUPABASE_SERVICE_ROLE_KEY`     | `eyJ...`                      | Supabase Dashboard → Settings → API (secret)         |
+| `NEXT_PUBLIC_APP_URL`           | `https://your-app.vercel.app` | Will be provided by Vercel after deploy, then update |
+| `ENCRYPTION_KEY`                | `your_32_char_key`            | Same as local (generate once, keep consistent)       |
+| `SPOTIFY_CLIENT_ID`             | Same as local                 | But update redirect URI after deploy                 |
+| `SPOTIFY_CLIENT_SECRET`         | Same as local                 |                                                      |
+| `DEEZER_APP_ID`                 | Same as local                 | But update redirect URI after deploy                 |
+| `DEEZER_APP_SECRET`             | Same as local                 |                                                      |
+| `YOUTUBE_API_KEY`               | Same as local                 |                                                      |
 
 Click **Deploy** (will fail on first auth attempt, that's OK - we need the URL first)
 
 ### 3. Get Production URL
 
 After first deploy:
+
 - Vercel assigns URL: `https://playlist-sync-xxx.vercel.app`
 - Copy this URL → Update `NEXT_PUBLIC_APP_URL` in Vercel env vars
 - **Redeploy** (Required for auth to work)
@@ -206,16 +215,19 @@ After first deploy:
 ### 4. Update OAuth Redirect URIs (Production)
 
 **Spotify:**
+
 - [dashboard](https://developer.spotify.com/dashboard) → Your App → Settings
 - Add Redirect URI: `https://your-app.vercel.app/api/auth/callback`
 - Save
 
 **Deezer:**
+
 - [myapps](https://developers.deezer.com/myapps) → Edit App
 - Add Redirect URI: `https://your-app.vercel.app/api/auth/callback`
 - Save
 
 **Google (YouTube):**
+
 - [console.cloud.google.com](https://console.cloud.google.com) → APIs & Services → Credentials
 - OAuth 2.0 Client ID → Edit
 - Add Authorized redirect URI: `https://your-app.vercel.app/api/auth/callback`
@@ -250,14 +262,14 @@ Test in order on your Vercel URL:
 
 ### Troubleshooting Production
 
-| Issue | Fix |
-|-------|-----|
-| `Error: fetch failed` (Supabase) | Check env vars in Vercel match exactly (no spaces) |
-| `Invalid redirect URI` (OAuth) | Update Spotify/Deezer/Google with exact Vercel URL |
-| Auth loop (login → login) | Check Supabase Auth → URL Configuration matches Vercel URL |
-| `Module not found` on build | Check `package.json` has all dependencies, `npm install` locally then push |
-| Lead capture 500 error | Check `SUPABASE_SERVICE_ROLE_KEY` is set in Vercel |
-| Styles not loading | Check `tailwind.config.ts` paths match your folder structure |
+| Issue                            | Fix                                                                        |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| `Error: fetch failed` (Supabase) | Check env vars in Vercel match exactly (no spaces)                         |
+| `Invalid redirect URI` (OAuth)   | Update Spotify/Deezer/Google with exact Vercel URL                         |
+| Auth loop (login → login)        | Check Supabase Auth → URL Configuration matches Vercel URL                 |
+| `Module not found` on build      | Check `package.json` has all dependencies, `npm install` locally then push |
+| Lead capture 500 error           | Check `SUPABASE_SERVICE_ROLE_KEY` is set in Vercel                         |
+| Styles not loading               | Check `tailwind.config.ts` paths match your folder structure               |
 
 ### Post-Deploy Next Steps
 
@@ -323,14 +335,17 @@ ENCRYPTION_KEY=
 ### 4. OAuth Setup
 
 **Spotify:**
+
 - Create app at [developer.spotify.com](https://developer.spotify.com/dashboard)
 - Redirect URI: `http://localhost:3000/api/auth/callback`
 
 **Deezer:**
+
 - Create app at [developers.deezer.com](https://developers.deezer.com/myapps)
 - Redirect URI: `http://localhost:3000/api/auth/callback`
 
 **YouTube:**
+
 - Enable YouTube Data API v3 in [Google Cloud Console](https://console.cloud.google.com/)
 - Create API Key (for public playlists)
 - Create OAuth credentials (for write access)
@@ -390,6 +405,7 @@ lib/
 ## Roadmap
 
 ### V0 (Current - 0€ Mode)
+
 - [x] Auth (Magic Link + Google)
 - [x] Spotify FULL (OAuth + Write)
 - [x] Deezer FULL (OAuth + Write)
@@ -400,24 +416,26 @@ lib/
 - [x] Capability matrix page
 
 ### V1 (First Revenue)
+
 - [ ] Apple Music FULL (after 100 leads or $99 budget)
 - [ ] Auto-sync (cron jobs)
 - [ ] Better matching algorithm
 - [ ] Email notifications
 
 ### V2 (Scale)
+
 - [ ] Mobile app (PWA)
 - [ ] API for developers
 - [ ] More platforms (Tidal, SoundCloud)
 
 ## Pricing
 
-| Plan | Price | Features |
-|------|-------|----------|
-| Free | $0 | 1 playlist, manual sync |
-| Premium | $1.99/mo | Unlimited, auto-sync |
-| Annual | $18/yr | Same as Premium, 25% off |
-| Lifetime | $99 once | Forever access |
+| Plan     | Price    | Features                 |
+| -------- | -------- | ------------------------ |
+| Free     | $0       | 1 playlist, manual sync  |
+| Premium  | $1.99/mo | Unlimited, auto-sync     |
+| Annual   | $18/yr   | Same as Premium, 25% off |
+| Lifetime | $99 once | Forever access           |
 
 **Trial**: 1 month free, no credit card required.
 

@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "playlists": "Mis Listas",
+    "connections": "Conexiones",
+    "supportedServices": "Servicios",
+    "feedback": "Feedback",
+    "settings": "Ajustes",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión"
+  },
+  "login": {
+    "title": "Bienvenido a PlaylistCoPilot",
+    "subtitle": "Inicia sesión para sincronizar tus listas",
+    "continueWithGoogle": "Continuar con Google",
+    "continueWithApple": "Continuar con Apple",
+    "continueWithFacebook": "Continuar con Facebook",
+    "orUseEmail": "O usa tu email",
+    "sendMagicLink": "Enviar enlace mágico"
+  },
+  "pricing": {
+    "title": "Precios simples",
+    "subtitle": "Comienza gratis. Actualiza cuando necesites más.",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "savePercent": "Ahorra 25%",
+    "free": "Gratis",
+    "premium": "Premium",
+    "lifetime": "Lifetime",
+    "startFreeTrial": "Iniciar prueba gratuita",
+    "getStarted": "Comenzar",
+    "getLifetime": "Obtener Lifetime",
+    "trialNote": "Todos los planes pagos incluyen 1 mes de prueba gratuita"
+  },
+  "supportedServices": {
+    "title": "Servicios de Música Soportados",
+    "subtitle": "Mantén tus listas sincronizadas entre plataformas",
+    "fullSupport": "Soporte Completo",
+    "partialSupport": "Soporte Parcial",
+    "comingSoon": "Próximamente",
+    "read": "Leer",
+    "write": "Escribir",
+    "youtubeNote": "YouTube Music no tiene API pública nativa. Lo soportamos indirectamente via playlists de YouTube.",
+    "appleCTA": "¿Quieres soporte completo para Apple Music?",
+    "appleCTASubtitle": "Estamos trabajando en sincronización completa. Recibe una notificación cuando esté listo."
+  }
+}

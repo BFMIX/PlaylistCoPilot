@@ -1,55 +1,56 @@
 import { Metadata } from "next"
 import { LeadCaptureForm } from "@/components/leads/lead-capture-form"
-import { Check, X, AlertCircle } from "lucide-react"
+import { Check, Clock, AlertCircle } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Supported Services - SyncTune",
+  title: "Supported Services - PlaylistCoPilot",
 }
 
 const capabilities = [
   {
+    id: "youtube",
+    name: "YouTube",
+    icon: "📺",
+    source: true,
+    destination: true,
+    badge: "full" as const,
+    description: "Full support. Sync your video playlists now.",
+  },
+  {
+    id: "youtube_music",
+    name: "YouTube Music",
+    icon: "🎧",
+    source: true,
+    destination: false,
+    badge: "partial" as const,
+    description: "Supported indirectly via YouTube playlists. No native API available.",
+  },
+  {
     id: "spotify",
     name: "Spotify",
     icon: "🟢",
-    source_oauth: true,
-    source_public: false,
-    destination_write: true,
-    modes: ["add_only", "export"],
-    badge: "full" as const,
-    limitations: "Rate limit variable + rolling window. Gestion 429 Retry-After obligatoire.",
-  },
-  {
-    id: "apple_music",
-    name: "Apple Music",
-    icon: "🍎",
-    source_oauth: true,
-    source_public: false,
-    destination_write: false,
-    modes: ["export_only"],
-    badge: "partial" as const,
-    limitations: "V0: Export + transfert sortant uniquement. Full write à 100 leads.",
+    source: false,
+    destination: false,
+    badge: "coming_soon" as const,
+    description: "Coming soon. Waiting for Spotify app approval.",
   },
   {
     id: "deezer",
     name: "Deezer",
     icon: "🎵",
-    source_oauth: true,
-    source_public: true,
-    destination_write: true,
-    modes: ["add_only", "export"],
-    badge: "full" as const,
-    limitations: "API stable, quotas généreux.",
+    source: false,
+    destination: false,
+    badge: "coming_soon" as const,
+    description: "Coming soon. Waiting for Deezer app approval.",
   },
   {
-    id: "youtube",
-    name: "YouTube / YouTube Music",
-    icon: "📺",
-    source_oauth: true,
-    source_public: true,
-    destination_write: true,
-    modes: ["add_only", "export"],
-    badge: "full" as const,
-    limitations: "YT Music via playlists YouTube (pas d'API dédiée). 10k quota/jour.",
+    id: "apple_music",
+    name: "Apple Music",
+    icon: "🍎",
+    source: true,
+    destination: false,
+    badge: "partial" as const,
+    description: "Partial support (export/transfer out). Full sync coming soon based on demand.",
   },
 ]
 
@@ -59,96 +60,77 @@ export default function SupportedServicesPage() {
       <div>
         <h1 className="text-3xl font-bold">Supported Music Services</h1>
         <p className="text-lg text-gray-600 mt-2">
-          We use official APIs only. No scraping.
+          Keep your playlists in sync across platforms.
         </p>
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 text-sm">
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-green-500"></span>
-          <span className="text-sm">Full Support</span>
+          <span>Full Support</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
-          <span className="text-sm">Supported (Partial)</span>
+          <span>Partial Support</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-gray-300"></span>
-          <span className="text-sm">Coming Soon</span>
+          <span>Coming Soon</span>
         </div>
       </div>
 
-      {/* Capability Matrix */}
-      <div className="bg-white rounded-lg border overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b">
-              <tr>
-                <th className="px-4 py-3 text-left text-sm font-semibold">Service</th>
-                <th className="px-4 py-3 text-center text-sm font-semibold">Source (OAuth)</th>
-                <th className="px-4 py-3 text-center text-sm font-semibold">Source (Public)</th>
-                <th className="px-4 py-3 text-center text-sm font-semibold">Destination Write</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold">Modes</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold">Limitations</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {capabilities.map((service) => (
-                <tr key={service.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-4">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl">{service.icon}</span>
-                      <div>
-                        <p className="font-medium">{service.name}</p>
-                        {service.badge === "full" && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                            Full Support
-                          </span>
-                        )}
-                        {service.badge === "partial" && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-                            Partial
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-4 text-center">
-                    {service.source_oauth ? (
-                      <Check className="w-5 h-5 text-green-600 mx-auto" />
-                    ) : (
-                      <X className="w-5 h-5 text-gray-400 mx-auto" />
-                    )}
-                  </td>
-                  <td className="px-4 py-4 text-center">
-                    {service.source_public ? (
-                      <Check className="w-5 h-5 text-green-600 mx-auto" />
-                    ) : (
-                      <X className="w-5 h-5 text-gray-400 mx-auto" />
-                    )}
-                  </td>
-                  <td className="px-4 py-4 text-center">
-                    {service.destination_write ? (
-                      <Check className="w-5 h-5 text-green-600 mx-auto" />
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-xs text-orange-600">
-                        <AlertCircle className="w-4 h-4" />
-                        Soon
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-4 py-4 text-sm">
-                    {service.modes.join(", ")}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-gray-600 max-w-xs">
-                    {service.limitations}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      {/* Services Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {capabilities.map((service) => (
+          <div 
+            key={service.id} 
+            className={`p-6 rounded-lg border ${
+              service.badge === "full" ? "bg-green-50 border-green-200" :
+              service.badge === "partial" ? "bg-yellow-50 border-yellow-200" :
+              "bg-gray-50 border-gray-200"
+            }`}
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{service.icon}</span>
+                <div>
+                  <h3 className="font-semibold text-lg">{service.name}</h3>
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    service.badge === "full" ? "bg-green-200 text-green-800" :
+                    service.badge === "partial" ? "bg-yellow-200 text-yellow-800" :
+                    "bg-gray-200 text-gray-700"
+                  }`}>
+                    {service.badge === "full" ? "Full Support" :
+                     service.badge === "partial" ? "Partial Support" :
+                     "Coming Soon"}
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-2 text-sm">
+                <div className="flex flex-col items-center">
+                  <span className="text-gray-500 text-xs">Read</span>
+                  {service.source ? (
+                    <Check className="w-5 h-5 text-green-600" />
+                  ) : (
+                    <Clock className="w-5 h-5 text-gray-400" />
+                  )}
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-gray-500 text-xs">Write</span>
+                  {service.destination ? (
+                    <Check className="w-5 h-5 text-green-600" />
+                  ) : service.badge === "coming_soon" ? (
+                    <Clock className="w-5 h-5 text-gray-400" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 text-yellow-600" />
+                  )}
+                </div>
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-gray-700">{service.description}</p>
+          </div>
+        ))}
       </div>
 
       {/* Apple Music CTA */}
@@ -156,36 +138,29 @@ export default function SupportedServicesPage() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex-1">
             <h3 className="font-semibold text-orange-900 text-lg">
-              🍎 Apple Music Full Sync — Coming Soon
+              🍎 Want full Apple Music support?
             </h3>
             <p className="text-orange-800 mt-2">
-              Currently supported: Export playlists and transfer to Spotify/Deezer.
-              Full two-way sync (create playlists in Apple Music) launching at 100 requests.
+              We are working on full two-way sync for Apple Music. 
+              Get notified when it is ready.
             </p>
-            <div className="mt-3">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-200 text-orange-900">
-                0/100 requests
-              </span>
-            </div>
           </div>
           <div className="md:w-80">
             <LeadCaptureForm
               source="apple_music_cta"
-              ctaText="Get Notified"
-              headline={undefined}
-              subheadline="Be the first to know when full Apple Music sync is available."
+              ctaText="Notify Me"
+              subheadline="Be the first to know when Apple Music full sync launches."
               tags={["apple_music_full"]}
             />
           </div>
         </div>
       </div>
 
-      {/* Note */}
+      {/* YouTube Music Note */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <p className="text-sm text-blue-800">
-          <strong>Note on YouTube Music:</strong> We use the official YouTube Data API. 
-          Playlists created on YouTube automatically appear in YouTube Music. 
-          There is no separate "YouTube Music API" — this is the official method.
+          <strong>About YouTube Music:</strong> YouTube Music does not have a public API for music catalog. 
+          We support it indirectly via YouTube playlists (which automatically appear in your YouTube Music app).
         </p>
       </div>
     </div>

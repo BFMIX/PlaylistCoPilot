@@ -1,30 +1,25 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type CookieOptions } from "@supabase/ssr"
+import { NextResponse, type NextRequest } from "next/server"
+import { locales, defaultLocale } from "@/lib/i18n/config"
 
-function isProtectedPath(pathname: string) {
-  return (
-    pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/playlists") ||
-    pathname.startsWith("/connections") ||
-    pathname.startsWith("/settings") ||
-    pathname.startsWith("/supported-services") ||
-    pathname.startsWith("/feedback")
-  );
+function getLocale(request: NextRequest): string {
+  const acceptedLanguage = request.headers.get("accept-language")
+  
+  if (acceptedLanguage) {
+    if (acceptedLanguage.includes("zh")) return "zh"
+    if (acceptedLanguage.includes("es")) return "es"
+    if (acceptedLanguage.includes("fr")) return "fr"
+  }
+  
+  return defaultLocale
 }
 
-export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-
-  // Ignore API & Next internal files
-  if (
-    pathname.startsWith("/api") ||
-    pathname.startsWith("/_next") ||
-    pathname === "/favicon.ico"
-  ) {
-    return NextResponse.next();
-  }
-
-  let res = NextResponse.next();
+export async function middleware(request: NextRequest) {
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -32,39 +27,72 @@ export async function middleware(req: NextRequest) {
     {
       cookies: {
         get(name: string) {
-          return req.cookies.get(name)?.value;
+          return request.cookies.get(name)?.value
         },
-        set(name: string, value: string, options: any) {
-          res.cookies.set({ name, value, ...options });
+        set(name: string, value: string, options: CookieOptions) {
+          request.cookies.set({
+            name,
+            value,
+            ...options,
+          })
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
+          response.cookies.set({
+            name,
+            value,
+            ...options,
+          })
         },
-        remove(name: string, options: any) {
-          res.cookies.set({ name, value: "", ...options });
+        remove(name: string, options: CookieOptions) {
+          request.cookies.set({
+            name,
+            value: "",
+            ...options,
+          })
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
+          response.cookies.set({
+            name,
+            value: "",
+            ...options,
+          })
         },
       },
-    },
-  );
+    }
+  )
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { session } } = await supabase.auth.getSession()
 
-  // Protect routes
-  if (isProtectedPath(pathname) && !user) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
+  // Check locale
+  const pathname = request.nextUrl.pathname
+  const pathnameIsMissingLocale = locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  )
+
+  if (pathnameIsMissingLocale) {
+    const locale = getLocale(request)
+    return NextResponse.redirect(
+      new URL(`/${locale}${pathname}`, request.url)
+    )
   }
 
-  // Redirect logged-in user away from login
-  if (pathname === "/login" && user) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/dashboard";
-    return NextResponse.redirect(url);
+  // Protect dashboard routes
+  if (pathname.includes("/dashboard") || pathname.includes("/playlists")) {
+    if (!session) {
+      const locale = pathname.split("/")[1] || defaultLocale
+      return NextResponse.redirect(new URL(`/${locale}/login`, request.url))
+    }
   }
 
-  return res;
+  return response
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
-};
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+}

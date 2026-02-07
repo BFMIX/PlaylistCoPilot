@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "dashboard": "仪表盘",
+    "playlists": "我的播放列表",
+    "connections": "连接",
+    "supportedServices": "支持的服务",
+    "feedback": "反馈",
+    "settings": "设置",
+    "logout": "退出登录",
+    "login": "登录"
+  },
+  "login": {
+    "title": "欢迎使用 PlaylistCoPilot",
+    "subtitle": "登录以同步您的播放列表",
+    "continueWithGoogle": "使用 Google 继续",
+    "continueWithApple": "使用 Apple 继续",
+    "continueWithFacebook": "使用 Facebook 继续",
+    "orUseEmail": "或使用电子邮件",
+    "sendMagicLink": "发送魔术链接"
+  },
+  "pricing": {
+    "title": "简单定价",
+    "subtitle": "免费开始。需要时升级。",
+    "monthly": "月付",
+    "yearly": "年付",
+    "savePercent": "节省 25%",
+    "free": "免费",
+    "premium": "高级版",
+    "lifetime": "终身版",
+    "startFreeTrial": "开始免费试用",
+    "getStarted": "开始使用",
+    "getLifetime": "获取终身版",
+    "trialNote": "所有付费计划都包含1个月免费试用"
+  },
+  "supportedServices": {
+    "title": "支持的音乐服务",
+    "subtitle": "在平台之间保持播放列表同步",
+    "fullSupport": "完全支持",
+    "partialSupport": "部分支持",
+    "comingSoon": "即将推出",
+    "read": "读取",
+    "write": "写入",
+    "youtubeNote": "YouTube Music 没有原生公共 API。我们通过 YouTube 播放列表间接支持。",
+    "appleCTA": "想要完整的 Apple Music 支持？",
+    "appleCTASubtitle": "我们正在开发完整的双向同步。准备好时通知您。"
+  }
+}
